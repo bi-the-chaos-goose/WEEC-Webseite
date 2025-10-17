@@ -4,7 +4,6 @@
         --header-text: #130E0C;
     }
 
-/* Grundlayout */
         body {
             margin: 0;
             background-color: #face91;
@@ -12,6 +11,17 @@
             font-weight: 400;
             font-style: normal;
             
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
         }
 
         header {
@@ -88,4 +98,17 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-
+        h2{
+            margin-left: 20px;
+             font-family: "Creepster", system-ui;
+             font-weight: 400;
+             font-size: 30px;
+        }
+        
+        footer{
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 0.75rem 1rem; /* gleiche Höhe wie Header */
+            font-weight: 500;
+        }
