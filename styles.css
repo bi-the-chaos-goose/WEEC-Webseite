@@ -1,0 +1,91 @@
+
+        :root {
+        --header-bg: #f47421;
+        --header-text: #130E0C;
+    }
+
+/* Grundlayout */
+        body {
+            margin: 0;
+            background-color: #face91;
+            font-family: "Delius Unicase", cursive;
+            font-weight: 400;
+            font-style: normal;
+            
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 0.75rem 1rem;
+        }
+
+        h1 {
+            margin-left: 10px;
+            font-family: "Creepster", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        p {
+            margin-left: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            text-align: center;
+            padding: 3rem 1rem;
+}
+
+/* Links und Name */
+        nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+
+        .create-btn {
+            display: inline-block;
+            margin: 2rem auto 0 auto; /* oben etwas Abstand, automatisch zentriert */
+            background-color: #e64a19; /* Orange, kannst du ändern */
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            
+            transition: background-color 0.2s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #bf360c; /* dunkleres Orange beim Hover */
+        }
+
+        .preview {
+            margin-top: 2rem;
+        }
+
+        .preview img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+
