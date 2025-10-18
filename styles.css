@@ -1,4 +1,7 @@
-
+/* === Google Fonts einmalig laden === */
+@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Creepster&display=swap');
+        
+        
         :root {
         --header-bg: #f47421;
         --header-text: #130E0C;
