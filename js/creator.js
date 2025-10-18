@@ -1,5 +1,14 @@
 // ==== Einfacher Avatar-Creator (Canvas + PNG Coloring) ====
 
+// --- Pfad-Basis je nach Ordner-Tiefe ermitteln (../ für /html/, "" im Root) ---
+const _parts = window.location.pathname.split("/").filter(Boolean);
+// z. B. "/" -> [], "/html/avatarCreationPage.html" -> ["html","avatarCreationPage.html"]
+const _depth = Math.max(_parts.length - 1, 0);
+const ROOT = _depth > 0 ? "../".repeat(_depth) : "";
+
+// >>> HIER ggf. anpassen, falls deine Bilder anders liegen (z. B. `${ROOT}images/`)
+const IMG_BASE = `${ROOT}assets/images/`;
+
 // --- Canvas Setup ---
 const SIZE = 800;  // Arbeitsgröße, bleibt schön scharf
 const canvas = document.getElementById('stageCanvas');
@@ -14,30 +23,30 @@ const colorInput = document.getElementById('colorPicker');
 let currentSection = 'hair';
 let bgColor = '#d9ecff';     // sichtbarer Stage-Background (auch ohne Avatar)
 const state = {
-  hair:   { src: '', color: '#5aa6ff' },
-  eyes:   { src: '', color: '#000000' },
-  mouth:  { src: '', color: '#000000' },
+  hair:      { src: '', color: '#5aa6ff' },
+  eyes:      { src: '', color: '#000000' },
+  mouth:     { src: '', color: '#000000' },
   accessory: { src: '', color: '#000000' }
 };
 
-// --- Deine Assets (Passe die Pfade an deine Dateien an!) ---
+// --- Deine Assets (einheitlich über IMG_BASE) ---
 const ASSETS = {
   hair: [
-    'assets/images/hair/hair-01.png',
-    'assets/hair/hair-02.png'
+    `${IMG_BASE}hair/hair-01.png`,
+    `${IMG_BASE}hair/hair-02.png`
   ],
   eyes: [
-    'assets/eyes/eyes-01.png',
-    'assets/eyes/eyes-02.png'
+    `${IMG_BASE}eyes/eyes-01.png`,
+    `${IMG_BASE}eyes/eyes-02.png`
   ],
   mouth: [
-    'assets/mouth/mouth-01.png'
+    `${IMG_BASE}mouth/mouth-01.png`
   ],
   accessory: [
-    'assets/accessory/hat-01.png'
+    `${IMG_BASE}accessory/hat-01.png`
   ],
   // optional: Base/Face, falls du eine feste Grundform hast
-  base: 'assets/images/base/defaultBase.png'
+  base: `${IMG_BASE}base/defaultBase.png`
 };
 
 // --- Helpers ---
@@ -45,9 +54,13 @@ function loadImage(src) {
   return new Promise((resolve, reject) => {
     if (!src) return resolve(null);
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // falls nötig
+    // Nur nötig, wenn Bilder von anderer Domain kommen:
+    // img.crossOrigin = 'anonymous';
     img.onload = () => resolve(img);
-    img.onerror = reject;
+    img.onerror = (e) => {
+      console.warn('Bild konnte nicht geladen werden:', src);
+      reject(e);
+    };
     img.src = src;
   });
 }
@@ -60,7 +73,7 @@ function tintPng(img, color) {
   off.height = img.naturalHeight || img.height;
   const octx = off.getContext('2d');
 
-  // 1) Original unverzerrt in Offscreen zeichnen
+  // 1) Original unverzerrt zeichnen
   octx.drawImage(img, 0, 0, off.width, off.height);
 
   // 2) Alpha als Maske nutzen und Farbe füllen
@@ -74,15 +87,14 @@ function tintPng(img, color) {
 }
 
 function drawFitted(srcCanvasOrImg, destCtx, destSize, fit = 'contain', padding = 0.06) {
-  // padding: z.B. 0.06 = 6% Innenrand ringsum
   const iw = srcCanvasOrImg.width;
   const ih = srcCanvasOrImg.height;
   if (!iw || !ih) return;
 
-  const avail = destSize * (1 - padding * 2);          // Platz innerhalb des Rahmens
+  const avail = destSize * (1 - padding * 2); // Platz innerhalb des Rahmens
   const scale = (fit === 'cover')
     ? Math.max(avail / iw, avail / ih)
-    : Math.min(avail / iw, avail / ih);                // "contain" ist Standard
+    : Math.min(avail / iw, avail / ih);      // "contain" ist Standard
 
   const w = iw * scale;
   const h = ih * scale;
@@ -95,38 +107,43 @@ function drawFitted(srcCanvasOrImg, destCtx, destSize, fit = 'contain', padding 
 
 // --- Render-Pipeline ---
 async function draw() {
-  // Hintergrund (Stage sichtbar, auch ohne Avatar)
+  // Hintergrund
   ctx.clearRect(0, 0, SIZE, SIZE);
   ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, SIZE, SIZE);
 
-  // Optional: Base/Face
-  // Base
+  // Optional: Base
+  try {
     const baseImg = await loadImage(ASSETS.base);
     if (baseImg) drawFitted(baseImg, ctx, SIZE, 'contain', 0.04);
+  } catch {}
 
-    // Layer
-    const order = ['hair', 'eyes', 'mouth', 'accessory'];
-    for (const key of order) {
-        const part = state[key];
-        if (!part.src) continue;
-        const img = await loadImage(part.src);
+  // Layer in Reihenfolge
+  const order = ['hair', 'eyes', 'mouth', 'accessory'];
+  for (const key of order) {
+    const part = state[key];
+    if (!part.src) continue;
 
-        const colorable = (key === 'hair' || key === 'accessory');
-        if (colorable) {
-            const tinted = tintPng(img, part.color);          // offscreen Canvas mit Farbe
-            drawFitted(tinted, ctx, SIZE, 'contain', 0.04);   // **hier** proportional zentriert zeichnen
-        } else {
-            drawFitted(img, ctx, SIZE, 'contain', 0.04);
-        }
+    try {
+      const img = await loadImage(part.src);
+      const colorable = (key === 'hair' || key === 'accessory');
+      if (colorable) {
+        const tinted = tintPng(img, part.color);
+        drawFitted(tinted, ctx, SIZE, 'contain', 0.04);
+      } else {
+        drawFitted(img, ctx, SIZE, 'contain', 0.04);
+      }
+    } catch {
+      // Fehler schon in loadImage geloggt
     }
+  }
 }
 
 // --- Options UI befüllen ---
 function renderOptions(section) {
   optionsEl.innerHTML = '';
+
   if (section === 'bg') {
-    // Für Hintergrund zeigen wir keine Bilder – Farbe via Picker
     optionsEl.innerHTML = '<div style="grid-column: 1 / -1; opacity:.8;">Ändere den Hintergrund mit dem Farbwähler.</div>';
     colorInput.value = rgbToHex(bgColor);
     return;
@@ -135,6 +152,7 @@ function renderOptions(section) {
   const list = ASSETS[section] || [];
   list.forEach(src => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = 'option' + (state[section].src === src ? ' is-selected' : '');
     btn.title = src.split('/').pop();
 
@@ -145,7 +163,6 @@ function renderOptions(section) {
 
     btn.addEventListener('click', () => {
       state[section].src = src;
-      // Standardfarbe ins Pickerfeld laden
       colorInput.value = rgbToHex(state[section].color);
       renderOptions(section);
       draw();
@@ -158,10 +175,14 @@ function renderOptions(section) {
 // --- Tabs Logik ---
 tabs.forEach(t => {
   t.addEventListener('click', () => {
-    tabs.forEach(x => x.classList.remove('is-active'));
+    tabs.forEach(x => {
+      x.classList.remove('is-active');
+      x.setAttribute('aria-selected', 'false');
+    });
     t.classList.add('is-active');
+    t.setAttribute('aria-selected', 'true');
+
     currentSection = t.dataset.section;
-    // Colorpicker mit aktueller Farbe vorbereiten
     if (currentSection === 'bg') {
       colorInput.value = rgbToHex(bgColor);
     } else {
@@ -177,7 +198,6 @@ colorInput.addEventListener('input', (e) => {
   if (currentSection === 'bg') {
     bgColor = val;
   } else {
-    // falls Section noch nichts ausgewählt hat → keine Panik, nur Farbe merken
     if (!state[currentSection]) return;
     state[currentSection].color = val;
   }
@@ -185,13 +205,16 @@ colorInput.addEventListener('input', (e) => {
 });
 
 // --- kleine Utils ---
-function rgbToHex(c) { return c.startsWith('#') ? c : c; }
+function rgbToHex(c) { return c && c.startsWith('#') ? c : (c || '#000000'); }
 
 // --- Initial ---
 (function init() {
   // Default: aktive Sektion "Haare"
   const startTab = document.querySelector('.section-tab[data-section="hair"]');
-  if (startTab) startTab.classList.add('is-active');
+  if (startTab) {
+    startTab.classList.add('is-active');
+    startTab.setAttribute('aria-selected', 'true');
+  }
 
   renderOptions('hair');   // erste Optionsliste
   colorInput.value = rgbToHex(state.hair.color);

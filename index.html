@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PumpkinForge.io</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+
+    <!-- Pfade: von Root-Ebene -->
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
 </head>
 
 <body>
     <header> 
         <nav aria-label="mainNavigation">
-            <div class="left">
-                <span class="name">PumpkinForge</span>
-            </div>
-            <div class="right">
-                <a href="index.html">Home</a>
-                <a href="aboutUs.html">Über Uns</a>
-                <a href="contact.html">Kontakt</a>
-                <a href="dataProtection.html">Datenschutz</a>
-                <a href="#">Impressum</a>
-            </div>
+        <div class="left">
+            <span class="name">PumpkinForge</span>
+        </div>
+        <div class="right">
+            <!-- 🔹 Links auf Unterseiten -->
+            <a href="index.html">Home</a>
+            <a href="html/aboutUs.html">Über Uns</a>
+            <a href="html/contact.html">Kontakt</a>
+            <a href="html/dataProtection.html">Datenschutz</a>
+            <!-- 🔹 Disabled-Link korrigiert -->
+            <a class="disabled">Impressum</a>
+        </div>
         </nav> 
     </header>
 
-    <main class="content">
-        <h1> Willkommen auf PumpkinForge! </h1>
-        <p>Lass deine Kreativität freien Lauf und erstelle deinen eigenen Charakter!</p>
+  <main class="content">
+        <h1>Willkommen auf PumpkinForge!</h1>
+        <p>Lass deiner Kreativität freien Lauf und erstelle deinen eigenen Charakter!</p>
+
         <button id="createBtn" class="create-btn">Jetzt kreieren</button>
+
         <div class="preview">
-            <img src="spielbild.jpg" alt="Vorschau des Spiels">
+        <!-- 🔹 Wenn du das Bild später in assets/images verschiebst -->
+        <!-- <img src="assets/images/spielbild.jpg" alt="Vorschau des Spiels"> -->
+        <img src="spielbild.jpg" alt="Vorschau des Spiels">
         </div>
     </main>
     
@@ -37,10 +45,11 @@
         <p>© 2025 PumpkinForge</p>
     </footer>
 
-    <!-- Connect Button to Avatarcreation Page-->
+    <!-- 🔹 Button-Weiterleitung zur Avatar-Seite -->
     <script>
         document.getElementById('createBtn').addEventListener('click', () => {
-            window.location.href = 'avatarCreationPage.html';
+        // richtige Pfadangabe: Datei liegt im html-Ordner
+        window.location.href = 'html/avatarCreationPage.html';
         });
     </script>
 </body>

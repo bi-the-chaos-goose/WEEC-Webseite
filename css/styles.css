@@ -1,10 +1,17 @@
 /* === Google Fonts einmalig laden === */
 @import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Creepster&display=swap');
+
+/* 1) Globale Basis */
+*, *::before, *::after { box-sizing: border-box; }
+
+ html { overflow-y: scroll; }
+
         
         
     :root {
         --header-bg: #f47421;
         --header-text: #130E0C;
+        --container: 1100px;
     }
 
     body {
@@ -12,12 +19,15 @@
         background-color: #face91;
         font-family: "Delius Unicase", cursive;
         font-weight: 400;
-        font-style: normal;
-            
+        font-style: normal;    
     }
 
-    html, body {
-        height: 100%;
+    html {
+     height: 100%;
+    }
+
+    body {
+        min-height: 100%;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -28,9 +38,43 @@
     }
 
     header {
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        width: 100vw;
         background-color: var(--header-bg);
         color: var(--header-text);
+    }
+
+    header nav {
+        max-width: var(--container);
+        margin: 0 auto;
         padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }   
+
+    nav .right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    nav .right a { margin-right: 0; }
+
+    /* Links und Name */
+    nav a {
+        color: var(--header-text);
+        text-decoration: none;
+        margin-right: 1rem;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
     }
 
     h1 {
@@ -44,27 +88,9 @@
         margin-left: 10px;
     }
 
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .content {
         text-align: center;
         padding: 3rem 1rem;
-    }
-
-    /* Links und Name */
-    nav a {
-        color: var(--header-text);
-        text-decoration: none;
-        margin-right: 1rem;
-        font-weight: 500;
-    }
-
-    nav a:hover {
-        text-decoration: underline;
     }
 
     .name {
@@ -117,23 +143,23 @@
     }
 
     /* Aktive Seite: hervorgehoben & nicht klickbar */
-    nav a.active,
-    nav a[aria-current="page"] {
-        color: #ffebd8;           /* gut sichtbar zum Header-Orange */
+    nav .right a.active,
+    nav .right a[aria-current="page"] {
+        color: #f8c67b;
         font-weight: 700;
-        text-decoration: none;    /* Hover-Unterstreichung überschreiben */
-        pointer-events: none;     /* nicht klickbar */
+        text-decoration: none;
+        pointer-events: none;
         cursor: default;
     }
 
-    /* Optional: “Impressum” (noch nicht verfügbar) */
-    nav .disabled,
-    nav a.disabled {
+    nav .right a.disabled,
+    nav .right .disabled {
         color: rgba(19,14,12,0.55);
         cursor: not-allowed;
         pointer-events: none;
         text-decoration: none;
     }
+
 
     /* -- avatar Creator -- */
 

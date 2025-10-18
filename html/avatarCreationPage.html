@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PumpkinForge</title>
-  <!--<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">-->
-  <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
+  <title>PumpkinForge – Creator</title>
+
+  <!-- von /html/ eine Ebene zurück zu css & js -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="../js/script.js" defer></script>
 </head>
 
 <body>
@@ -16,11 +17,12 @@
         <span class="name">PumpkinForge</span>
       </div>
       <div class="right">
-        <a href="index.html">Home</a>
+        <!-- Links relativ aus /html/ -->
+        <a href="../index.html">Home</a>
         <a href="aboutUs.html">Über Uns</a>
         <a href="contact.html">Kontakt</a>
         <a href="dataProtection.html">Datenschutz</a>
-        <a href="#">Impressum</a>
+        <a class="disabled">Impressum</a>
       </div>
     </nav> 
   </header>
@@ -59,6 +61,7 @@
     </div>
   </main>
 
-  <script src="creator.js" defer></script>
+  <!-- Creator-Logik liegt in /js -->
+  <script src="../js/creator.js" defer></script>
 </body>
 </html>
