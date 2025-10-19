@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PumpkinForge – Creator</title>
+
+  <!-- von /html/ eine Ebene zurück zu css & js -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="../js/script.js" defer></script>
+</head>
+
+<body>
+  <header> 
+    <nav aria-label="mainNavigation">
+      <div class="left">
+        <span class="name">PumpkinForge</span>
+      </div>
+      <div class="right">
+        <!-- Links relativ aus /html/ -->
+        <a href="../index.html">Home</a>
+        <a href="aboutUs.html">Über Uns</a>
+        <a href="contact.html">Kontakt</a>
+        <a href="dataProtection.html">Datenschutz</a>
+        <a class="disabled">Impressum</a>
+      </div>
+    </nav> 
+  </header>
+
+  <main class="content">
+    <h1>Pumpkin Creator</h1>
+
+    <div class="builder">
+      <section class="stage">
+        <div class="avatar-canvas" id="avatarCanvasWrap">
+          <canvas id="stageCanvas" width="800" height="800" aria-label="Avatar Stage"></canvas>
+        </div>
+      </section>
+
+      <aside class="controls">
+        <div class="sections" role="tablist" aria-label="Sektionen">
+          <button type="button" class="section-tab is-active" role="tab" data-section="hair" aria-controls="options" aria-selected="true">Haare</button>
+          <button type="button" class="section-tab" role="tab" data-section="eyes" aria-controls="options" aria-selected="false">Augen</button>
+          <button type="button" class="section-tab" role="tab" data-section="mouth" aria-controls="options" aria-selected="false">Mund</button>
+          <button type="button" class="section-tab" role="tab" data-section="accessory" aria-controls="options" aria-selected="false">Accessoires</button>
+          <button type="button" class="section-tab" role="tab" data-section="bg" aria-controls="options" aria-selected="false">Hintergrund</button>
+        </div>
+
+        <div class="options" id="options" role="tabpanel" aria-live="polite" tabindex="0"></div>
+
+        <div class="color-picker">
+          <label for="colorPicker">Farbe wählen</label>
+          <input id="colorPicker" type="color" value="#5aa6ff" />
+        </div>
+
+        <div class="actions">
+          <button type="button" id="randomizeBtn">🎲 Zufall</button>
+          <button type="button" id="downloadBtn">Bild speichern</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Creator-Logik liegt in /js -->
+  <script src="../js/creator.js" defer></script>
+</body>
+</html>

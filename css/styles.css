@@ -1,0 +1,250 @@
+/* === Google Fonts einmalig laden === */
+@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Creepster&display=swap');
+
+/* 1) Globale Basis */
+*, *::before, *::after { box-sizing: border-box; }
+
+ html { overflow-y: scroll; }
+
+        
+        
+    :root {
+        --header-bg: #f47421;
+        --header-text: #130E0C;
+        --container: 1100px;
+    }
+
+    body {
+        margin: 0;
+        background-color: #face91;
+        font-family: "Delius Unicase", cursive;
+        font-weight: 400;
+        font-style: normal;    
+    }
+
+    html {
+     height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1;
+    }
+
+    header {
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        width: 100vw;
+        background-color: var(--header-bg);
+        color: var(--header-text);
+    }
+
+    header nav {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }   
+
+    nav .right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    nav .right a { margin-right: 0; }
+
+    /* Links und Name */
+    nav a {
+        color: var(--header-text);
+        text-decoration: none;
+        margin-right: 1rem;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    h1 {
+        margin-left: 10px;
+        font-family: "Creepster", system-ui;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    p {
+        margin-left: 10px;
+    }
+
+    .content {
+        text-align: center;
+        padding: 3rem 1rem;
+    }
+
+    .name {
+        font-weight: bold;
+    }
+
+    .create-btn {
+        display: inline-block;
+        margin: 2rem auto 0 auto; /* oben etwas Abstand, automatisch zentriert */
+        background-color: #e64a19; /* Orange, kannst du ändern */
+        color: white;
+        font-size: 1.25rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        
+        transition: background-color 0.2s ease;
+    }
+
+    .create-btn:hover {
+        background-color: #bf360c; /* dunkleres Orange beim Hover */
+    }
+
+    .preview {
+        margin-top: 2rem;
+    }
+
+    .preview img {
+        width: 80%;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2{
+        margin-left: 20px;
+        font-family: "Creepster", system-ui;
+        font-weight: 400;
+        font-size: 30px;
+    }
+    
+    footer{
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        text-align: center;
+        padding: 0.75rem 1rem; /* gleiche Höhe wie Header */
+        font-weight: 500;
+    }
+
+    /* Aktive Seite: hervorgehoben & nicht klickbar */
+    nav .right a.active,
+    nav .right a[aria-current="page"] {
+        color: #f8c67b;
+        font-weight: 700;
+        text-decoration: none;
+        pointer-events: none;
+        cursor: default;
+    }
+
+    nav .right a.disabled,
+    nav .right .disabled {
+        color: rgba(19,14,12,0.55);
+        cursor: not-allowed;
+        pointer-events: none;
+        text-decoration: none;
+    }
+
+
+    /* -- avatar Creator -- */
+
+    .builder{
+        display:flex;
+        justify-content:center;   /* alles zentriert */
+        align-items:flex-start;
+        gap:2rem;
+        max-width:1200px;
+        margin:0 auto;
+        padding:2rem 1rem;
+    }
+
+    /* Stage links – sichtbare Größe via max-width steuern */
+    .stage{ 
+        flex:0 0 420px; max-width:420px;
+    }
+    .avatar-canvas{
+        width:100%;
+        aspect-ratio:1/1;
+        background:#d9ecff;
+        border-radius:16px;
+        border:5px ridge #f47421;                 /* schöner Rahmen */
+        box-shadow:0 0 12px rgba(244,116,33,.4);
+        overflow:hidden;
+    }
+    .avatar-canvas canvas{ 
+        width:100%; height:100%; display:block; 
+    }
+
+    /* Menü rechts */
+    .controls{
+        flex:0 0 360px;
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+    }
+
+    /* Tabs & Options */
+    .sections{ 
+        display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center;
+    }
+    .section-tab{
+        background:#fff3e6; border:2px solid #f2c49e; border-radius:12px; padding:.6rem .8rem; font-weight:700; cursor:pointer; 
+    }
+    .section-tab.is-active{ 
+        background:#ffe0c7; border-color:#e18b4f; 
+    }
+
+    .options{
+        background:#fff; border:2px solid #f2c49e; border-radius:14px;
+        padding:.75rem; min-height:220px; max-height:52vh; overflow:auto;
+        display:grid; grid-template-columns:repeat(auto-fill, minmax(72px,1fr)); gap:.6rem;
+    }
+    .option{ 
+        border:2px solid #e9d3c2; background:#fffaf6; border-radius:12px; padding:.4rem; cursor:pointer; display:grid; place-items:center; 
+    }
+    .option.is-selected{ 
+        border-color:#e18b4f;
+    }
+    .option img{ 
+        width:100%; height:100%; object-fit:contain; 
+    }
+
+    .color-picker, .actions{
+        background:#fff; border:2px solid #f2c49e; border-radius:14px; padding:.75rem;
+    }
+    .actions{ 
+        display:grid; grid-auto-flow:column; gap:.75rem; 
+    }
+    .actions button{ 
+        background:#e64a19; color:#fff; font-weight:700; border:0; border-radius:10px; padding:.7rem 1rem; cursor:pointer; 
+    }
+    .actions button:hover{ 
+        background:#bf360c; 
+    }
+
+    /* Mobile */
+    @media (max-width:900px){
+        .builder{ flex-direction:column; align-items:center; }
+        .stage, .controls{ max-width:90%; flex:unset; }
+    }
+
+
+
+
+
+
