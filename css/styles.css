@@ -1,5 +1,5 @@
 /* === Google Fonts einmalig laden === */
-@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Jolly+Lodger&display=swap');
 
 /* 1) Globale Basis */
 *, *::before, *::after { box-sizing: border-box; }
@@ -15,41 +15,41 @@
     }
 
     body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
         margin: 0;
+        margin: 0;
+        padding: 0;
+        height: 100%;
         background-color: #face91;
-        font-family: "Delius Unicase", cursive;
+        font-family: "Jolly Lodger", cursive;
         font-weight: 400;
-        font-style: normal;    
+        font-style: normal;
+        font-size: 30px;    
     }
 
     html {
      height: 100%;
     }
 
-    body {
-        min-height: 100%;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-    }
 
     main {
         flex: 1;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 
     header {
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        width: 100vw;
-        background-color: var(--header-bg);
-        color: var(--header-text);
+       width: 100%;
+       background-color: var(--header-bg);
+       color: var(--header-text);
+       margin: 0;
     }
 
     header nav {
         max-width: var(--container);
+       
         margin: 0 auto;
         padding: 0.75rem 1rem;
         display: flex;
@@ -78,10 +78,10 @@
     }
 
     h1 {
-        margin-left: 10px;
         font-family: "Creepster", system-ui;
         font-weight: 400;
         font-style: normal;
+        font-size: 50px;
     }
 
     p {
@@ -102,8 +102,9 @@
         margin: 2rem auto 0 auto; /* oben etwas Abstand, automatisch zentriert */
         background-color: #e64a19; /* Orange, kannst du ändern */
         color: white;
-        font-size: 1.25rem;
-        font-weight: bold;
+        font-family: "Jolly Lodger";
+        font-size: 1.5rem;
+        font-weight: auto;
         border: none;
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
@@ -128,19 +129,23 @@
     }
 
     h2{
-        margin-left: 20px;
-        font-family: "Creepster", system-ui;
-        font-weight: 400;
+        margin-left: 10px;
+        font-family: "Jolly Lodger", system-ui;
+        font-weight: 1000;
         font-size: 30px;
     }
     
     footer{
-        background-color: var(--header-bg);
-        color: var(--header-text);
-        text-align: center;
-        padding: 0.75rem 1rem; /* gleiche Höhe wie Header */
-        font-weight: 500;
+       width: 100%;
+       background-color: var(--header-bg);
+       color: var(--header-text);
+       text-align: center;
+       font-size: 1.5rem;
+       padding: 0.1rem 0;
+       font-weight: 400;
+       margin: 0;
     }
+
 
     /* Aktive Seite: hervorgehoben & nicht klickbar */
     nav .right a.active,
@@ -238,9 +243,18 @@
     }
 
     /* Mobile */
-    @media (max-width:900px){
+    @media (max-width:700px){
         .builder{ flex-direction:column; align-items:center; }
         .stage, .controls{ max-width:90%; flex:unset; }
+        header nav {
+           /* flex-direction: column;        /* statt nebeneinander, untereinander */
+            align-items: center;           /* alles horizontal zentrieren */
+            justify-content: center;       /* vertikal mittig */
+            text-align: center;
+            gap: 0.5rem;                   /* kleiner Abstand zwischen Name und Links */
+    }
+        nav a {font-size: 1.5rem; flex-direction: column;  gap: 0.5rem;}
+        .name {font-size: 0rem;}
     }
 
 
