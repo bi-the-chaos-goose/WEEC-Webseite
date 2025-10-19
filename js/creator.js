@@ -24,9 +24,9 @@ let currentSection = 'hair';
 let bgColor = '#d9ecff';     // sichtbarer Stage-Background (auch ohne Avatar)
 const state = {
   hair:      { src: '', color: '#5aa6ff' },
-  eyes:      { src: '', color: '#000000' },
-  mouth:     { src: '', color: '#000000' },
-  accessory: { src: '', color: '#000000' }
+  eyes:      { src: '', color: '#791c17' },
+  mouth:     { src: '', color: '#791c17' },
+  accessory: { src: '', color: '#791c17' }
 };
 
 // --- Deine Assets (einheitlich über IMG_BASE) ---
@@ -36,11 +36,15 @@ const ASSETS = {
     `${IMG_BASE}hair/hair-02.png`
   ],
   eyes: [
-    `${IMG_BASE}eyes/eyes-01.png`,
-    `${IMG_BASE}eyes/eyes-02.png`
+    `${IMG_BASE}face/eyes/eyes_01.png`,
+    `${IMG_BASE}face/eyes/eyes_02.png`,
+    `${IMG_BASE}face/eyes/eyes_03.png`,
+    `${IMG_BASE}face/eyes/eyes_04.png`,
+    `${IMG_BASE}face/eyes/eyes_05.png`
   ],
   mouth: [
-    `${IMG_BASE}mouth/mouth-01.png`
+    `${IMG_BASE}face/mouth/mouth_01.png`,
+    `${IMG_BASE}face/mouth/mouth_02.png`
   ],
   accessory: [
     `${IMG_BASE}accessory/hat-01.png`
@@ -119,14 +123,14 @@ async function draw() {
   } catch {}
 
   // Layer in Reihenfolge
-  const order = ['hair', 'eyes', 'mouth', 'accessory'];
+  const order = ['hair', 'mouth','eyes', 'accessory'];
   for (const key of order) {
     const part = state[key];
     if (!part.src) continue;
 
     try {
       const img = await loadImage(part.src);
-      const colorable = (key === 'hair' || key === 'accessory');
+      const colorable = (key === 'hair' || key === 'accessory' || key === 'mouth' || key === 'eyes');
       if (colorable) {
         const tinted = tintPng(img, part.color);
         drawFitted(tinted, ctx, SIZE, 'contain', 0.04);
