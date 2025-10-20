@@ -7,7 +7,7 @@
 
   <!-- von /html/ eine Ebene zurück zu css & js -->
   <link rel="stylesheet" href="../css/styles.css" />
-  <script src="../js/script.js" defer></script>
+  <!--<script src="../js/script.js" defer></script>-->
 </head>
 
 <body>
@@ -38,19 +38,61 @@
       </section>
 
       <aside class="controls">
-        <div class="sections" role="tablist" aria-label="Sektionen">
-          <button type="button" class="section-tab is-active" role="tab" data-section="hair" aria-controls="options" aria-selected="true">Haare</button>
-          <button type="button" class="section-tab" role="tab" data-section="eyes" aria-controls="options" aria-selected="false">Augen</button>
-          <button type="button" class="section-tab" role="tab" data-section="mouth" aria-controls="options" aria-selected="false">Mund</button>
-          <button type="button" class="section-tab" role="tab" data-section="accessory" aria-controls="options" aria-selected="false">Accessoires</button>
-          <button type="button" class="section-tab" role="tab" data-section="bg" aria-controls="options" aria-selected="false">Hintergrund</button>
+
+        <!-- Kategorien: data-multi="true" kennzeichnet Mehrfachauswahl-Kategorien -->
+        <div class="sections" role="tablist" aria-label="Sektionen" id="sections">
+          <button type="button" class="section-tab is-active" role="tab"
+                  data-section="hair" data-multi="false"
+                  aria-controls="optionsPanel" aria-selected="true">Haare</button>
+
+          <button type="button" class="section-tab" role="tab"
+                  data-section="eyes" data-multi="false"
+                  aria-controls="optionsPanel" aria-selected="false">Augen</button>
+
+          <button type="button" class="section-tab" role="tab"
+                  data-section="mouth" data-multi="false"
+                  aria-controls="optionsPanel" aria-selected="false">Mund</button>
+
+          <button type="button" class="section-tab" role="tab"
+                  data-section="accessory" data-multi="true"
+                  aria-controls="optionsPanel" aria-selected="false">Accessoires</button>
+
+          <button type="button" class="section-tab" role="tab"
+                  data-section="bg" data-multi="true"
+                  aria-controls="optionsPanel" aria-selected="false">Hintergrund</button>
         </div>
 
-        <div class="options" id="options" role="tabpanel" aria-live="polite" tabindex="0"></div>
+        <!-- Toolbar pro aktiver Kategorie -->
+        <div class="category-toolbar" aria-live="polite">
+          <div class="toolbar-row">
+            <!--<strong id="activeCategoryLabel">Haare</strong>-->
+            <div class="spacer"></div>
 
+            <!-- „Alles löschen“ nur bei data-multi=true anzeigen (per JS toggeln) -->
+            <button type="button" id="clearCategoryBtn" class="ghost" title="Alle Auswahl dieser Kategorie entfernen">
+              🗑️ Alles löschen
+            </button>
+          </div>
+        </div>
+
+        <!-- Options-Panel: hier kommen Karten pro Item rein -->
+        <div class="options" id="optionsPanel" role="tabpanel" aria-live="polite" tabindex="0"
+             data-category="hair">
+          <!-- JS rendert Karten auf Basis des Templates unten -->
+        </div>
+
+        <!-- Globale Standardfarbe (falls du sie weiterhin brauchst) -->
         <div class="color-picker">
-          <label for="colorPicker">Farbe wählen</label>
-          <input id="colorPicker" type="color" value="#5aa6ff" />
+          <label class="sr-only" for="colorPicker">Farbe wählen</label>
+          <input id="colorPicker" type="color" aria-label="Farbe" value="#5aa6ff" />
+        </div>
+
+
+        <!-- Zufallsfarbe (Color API) -->
+        <div class="color-api card">
+          <h3>Zufallsfarbe (Color API)</h3>
+          <button id="randomColorBtn" type="button">Zufallsfarbe generieren</button>
+          <div id="randColorInfo" style="margin-top:.75rem;"></div>
         </div>
 
         <div class="actions">
@@ -61,7 +103,22 @@
     </div>
   </main>
 
+  <template id="tpl-option-card">
+    <!-- Card toggelt über data-on="true/false" -->
+    <article class="option-card" data-id="" data-cat="" data-on="false" tabindex="0">
+      <div class="card-thumb">
+        <img class="thumb" alt="" />
+      </div>
+      <div class="color-rows">
+        <input type="color" class="color-input" value="#ff8800" />
+      </div>
+    </article>
+  </template>
+
   <!-- Creator-Logik liegt in /js -->
-  <script src="../js/creator.js" defer></script>
+  <!--<script type="module" src="../js/creator/main.js"></script>-->
+
+  <script type="module" src="/js/creator/main.js"></script>
+
 </body>
 </html>
