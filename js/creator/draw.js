@@ -57,7 +57,7 @@ export async function drawAll() {
   }
 
   // Reihenfolge der Layer
-  const order = ["hair", "mouth", "eyes", "accessory"];
+  const order = ["stem", "mouth", "eyes", "accessory"];
 
   for (const key of order) {
     if (MULTI_CATEGORIES.has(key)) {

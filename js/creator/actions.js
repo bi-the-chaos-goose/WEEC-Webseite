@@ -6,7 +6,7 @@ import { randomHex, shuffle } from "./utils.js";
 export function bindRandomize(btn, panelRefresh) {
   btn?.addEventListener("click", () => {
     const s = getState();
-    ["hair","eyes","mouth"].forEach(sec => {
+    ["stem","eyes","mouth"].forEach(sec => {
       const list = ASSETS[sec] || [];
       if (!list.length) return;
       const pick = list[Math.floor(Math.random()*list.length)];

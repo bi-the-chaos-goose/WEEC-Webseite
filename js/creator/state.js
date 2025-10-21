@@ -1,10 +1,10 @@
 export const MULTI_CATEGORIES = new Set(); // wird in main.js gefüllt
-let currentSection = "hair";
+let currentSection = "stem";
 let bgColor = "#d9ecff";
 let lastPicked = null; // { section, src } oder null
 
 const state = {
-  hair: { src: "", color: "#5aa6ff" },
+  stem: { src: "", color: "#5aa6ff" },
   eyes: { src: "", color: "#791c17" },
   mouth: { src: "", color: "#791c17" },
   accessory: [] // [{src,color,on:true}]

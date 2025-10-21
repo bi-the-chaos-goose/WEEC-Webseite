@@ -29,5 +29,5 @@ bindRandomize(randomizeBtn, () => renderOptions(tpl, panel));
 bindDownload(downloadBtn, canvas);
 bindRandomColor(randomColorBtn, randColorInfo, globalPicker);
 
-globalPicker.value = rgbToHex(getState().hair.color);
+globalPicker.value = rgbToHex(getState().stem.color);
 drawAll();
