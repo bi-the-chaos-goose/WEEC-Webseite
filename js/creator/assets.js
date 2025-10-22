@@ -17,6 +17,8 @@ export const ASSETS = {
     `${IMG_BASE}eyes/eyes_03.png`,
     `${IMG_BASE}eyes/eyes_04.png`,
     `${IMG_BASE}eyes/eyes_05.png`,
+    `${IMG_BASE}eyes/eyes_06.png`,
+    `${IMG_BASE}eyes/eyes_07.png`,
   ],
   mouth: [
     `${IMG_BASE}mouth/mouth_01.png`,
@@ -26,10 +28,11 @@ export const ASSETS = {
     `${IMG_BASE}mouth/mouth_05.png`,
   ],
   accessory: [
-    `${IMG_BASE}accessories/hatBase.png`,
-    `${IMG_BASE}accessories/hatRibbon.png`,
-    `${IMG_BASE}accessories/hatClasp.png`,
-    `${IMG_BASE}accessories/hatEmbellishment.png`,
+    `${IMG_BASE}accessories/acc_01.png`,
+    `${IMG_BASE}accessories/acc_02.png`,
+    `${IMG_BASE}accessories/acc_03.png`,
+    `${IMG_BASE}accessories/acc_04.png`,
+    `${IMG_BASE}accessories/acc_05.png`,
   ],
   base: `${IMG_BASE}base/defaultBase.png`,
 };
