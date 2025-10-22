@@ -1,7 +1,7 @@
 import { ASSETS } from "./assets.js";
 import { getState, setBgColor } from "./state.js";
 import { drawAll } from "./draw.js";
-import { randomHex, shuffle } from "./utils.js";
+import { randomHex } from "./utils.js";
 
 export function bindRandomize(btn, panelRefresh) {
   btn?.addEventListener("click", () => {
@@ -12,10 +12,19 @@ export function bindRandomize(btn, panelRefresh) {
       const pick = list[Math.floor(Math.random()*list.length)];
       s[sec].src = pick; s[sec].color = randomHex();
     });
-    if (ASSETS.accessory?.length) {
-      const picks = shuffle(ASSETS.accessory).slice(0, Math.floor(Math.random()*4));
-      s.accessory = picks.map(src => ({ src, color: randomHex(), on: true }));
-    }
+    const takeOne = Math.random() < 0.6; // ggf. auf true setzen, wenn immer eins
+     s.accessory = takeOne
+       ? {
+           src: ASSETS.accessory[Math.floor(Math.random() * ASSETS.accessory.length)],
+           color: randomHex(),
+           on: true
+         }
+       : {
+           // leer wählen, Farbe behalten (falls UI die weiter nutzt) oder neu setzen
+           src: "",
+           color: s.accessory?.color ?? randomHex(),
+           on: true
+         };
     setBgColor(randomHex());
     panelRefresh();
     drawAll();

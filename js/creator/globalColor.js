@@ -1,4 +1,4 @@
-import { getCurrentSection, getState, getLastPicked, setBgColor, MULTI_CATEGORIES } from "./state.js";
+import { getCurrentSection, getState, setBgColor } from "./state.js";
 import { drawAll } from "./draw.js";
 
 export function bindGlobalColor(inputEl) {
@@ -9,17 +9,13 @@ export function bindGlobalColor(inputEl) {
 
     if (section === "bg") {
       setBgColor(val);
-    } else if (MULTI_CATEGORIES.has(section)) {
-      const lp = getLastPicked();
-      if (lp && lp.section === section) {
-        const it = state[section].find(x => x.src === lp.src);
-        if (it) it.color = val;
-      } else {
-        state[section].forEach(x => { if (x.on) x.color = val; });
-      }
+    } else if (section === "accessory") {
+      if (state.accessory?.src) state.accessory.color = val;
     } else {
-      state[section].color = val;
+      if (state[section]) state[section].color = val;
     }
+
     drawAll();
   });
 }
+

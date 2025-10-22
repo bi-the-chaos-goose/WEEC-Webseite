@@ -1,5 +1,5 @@
 import { ASSETS } from "./assets.js";
-import { getState, getBgColor, MULTI_CATEGORIES } from "./state.js";
+import { getState, getBgColor } from "./state.js";
 
 const SIZE = 800;
 let ctx;
@@ -60,29 +60,14 @@ export async function drawAll() {
   const order = ["stem", "mouth", "eyes", "accessory"];
 
   for (const key of order) {
-    if (MULTI_CATEGORIES.has(key)) {
-      // Mehrfach-Layer
-      for (const item of s[key]) {
-        if (!item.on) continue;
-        try {
-          const img = await loadImage(item.src);
-          if (!img) continue;
-          drawFitted(tintPng(img, item.color));
-        } catch (e) {
-          console.error("[layer 404]", key, item.src, e);
-        }
-      }
-    } else {
-      // Single-Layer
-      const part = s[key];
-      if (!part.src) continue;
-      try {
-        const img = await loadImage(part.src);
-        if (!img) continue;
-        drawFitted(tintPng(img, part.color));
-      } catch (e) {
-        console.error("[layer 404]", key, part.src, e);
-      }
-    }
+    const part = s[key]; // immer Objekt
+   if (!part?.src) continue;
+   try {
+     const img = await loadImage(part.src);
+     if (!img) continue;
+     drawFitted(tintPng(img, part.color ?? "#000000"));
+   } catch (e) {
+     console.error("[layer 404]", key, part.src, e);
+   }
   }
 }
