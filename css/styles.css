@@ -214,19 +214,88 @@
         background:#ffe0c7; border-color:#e18b4f; 
     }
 
-    .options{
-        background:#fff; border:2px solid #f2c49e; border-radius:14px;
-        padding:.75rem; min-height:220px; max-height:52vh; overflow:auto;
-        display:grid; grid-template-columns:repeat(auto-fill, minmax(72px,1fr)); gap:.6rem;
+    /* === Avatar-Optionen (minimalistisch) === */
+
+    .options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 120 -> 140 */
+        gap: 12px;
+        max-height: 360px;
+        overflow: auto;
+        align-content: start;
+        background: #fff;
+        border: 2px solid #f2c49e;
+        border-radius: 14px;
+        padding: .75rem;
     }
-    .option{ 
-        border:2px solid #e9d3c2; background:#fffaf6; border-radius:12px; padding:.4rem; cursor:pointer; display:grid; place-items:center; 
+
+    /* Kartenlayout */
+    .option-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+        padding: .5rem;
+        border: 2px solid rgba(0,0,0,.1);
+        border-radius: .75rem;
+        background: #fff7ef;
+        box-shadow: 0 1px 0 rgba(0,0,0,.04);
+        cursor: pointer;
+        transition: border-color .15s, box-shadow .15s;
     }
-    .option.is-selected{ 
-        border-color:#e18b4f;
+
+    /* Hover + aktiv markiert */
+    .option-card:hover {
+        border-color: rgba(0,0,0,.25);
     }
-    .option img{ 
-        width:100%; height:100%; object-fit:contain; 
+    .option-card[data-on="true"] {
+        border-color: #8a5cff;                  /* Farbe des Auswahlrandes */
+        box-shadow: 0 0 0 3px rgba(138,92,255,.18) inset;
+    }
+
+    /* Vorschau-Bild */
+    .option-card .card-thumb {
+        width: 100%;
+        height: 120px;                         /* <-- wichtig: fixe Thumbnail-Höhe */
+        display: flex;                         /* zentrieren */
+        align-items: center;
+        justify-content: center;
+        /* Schachbrett-Hintergrund macht transparente PNGs sichtbar */
+        background:
+            linear-gradient(45deg,#eee 25%,transparent 25%) -8px 0/16px 16px,
+            linear-gradient(45deg,transparent 75%,#eee 75%) -8px 0/16px 16px,
+            linear-gradient(45deg,#eee 25%,transparent 25%)/16px 16px,
+            linear-gradient(45deg,transparent 75%,#eee 75%)/16px 16px,
+            #fff;
+        border-radius: .5rem;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,.06);
+    }
+    .options .thumb {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;              /* nicht auf 100% stretchen */
+        height: auto;
+        object-fit: contain;      /* sauber einpassen */
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+
+    /* Colorpicker schlicht unter dem Bild */
+    .color-rows {
+        display: flex;
+        justify-content: center;
+    }
+    .color-input {
+        width: 2.2rem;
+        height: 2rem;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .4rem;
+        background: #fff;
+        padding: 0;
+        cursor: pointer;
     }
 
     .color-picker, .actions{
@@ -241,6 +310,19 @@
     .actions button:hover{ 
         background:#bf360c; 
     }
+
+    .card { padding:1rem; border-radius:12px; background:#fff; box-shadow:0 4px 16px rgba(0,0,0,.08); }
+    .swatch { border-radius:10px; width:72px; height:72px; display:block; }
+
+    /* Visually hidden, aber für Screenreader da */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
 
     /* Mobile */
     @media (max-width:700px){
